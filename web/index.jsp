@@ -5,6 +5,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  <C:redirect url="/houtai/login.jsp"/>
+  <C:redirect url="/qiantai/login.jsp"/>
   </body>
 </html>
