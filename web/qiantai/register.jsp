@@ -1,33 +1,53 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title></title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<script>
-	function checkForm(){
-		if(document.getElementById("agreement").checked==true){
-			return true;
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+	<script>
+		$(function () {
+			$("#username").blur(function () {
+				var name = this.text;
+				alert(name);
+				$.get("",function (data) {
+					if (data == "true") {
+						$("#username_notice").text("用户名重复,请重新输入!");
+					}
+				})
+			})
+		});
+	</script>
+	<script type="text/javascript">
+		function checkForm(){
+			if(document.getElementById("agreement").checked==true){
+				return true;
+			}
+			return false;
 		}
-		return false;
-	}
-	
-	function checkUserNameValue(val){
-		if(val==""){
-			document.getElementById("username_notice").innerHTML="用户名不能为空";
-		}else{
-			document.getElementById("username_notice").innerHTML="<img src='images/icon_gou.gif'/>";
+
+		function checkUserNameValue(val){
+			if(val==""){
+				document.getElementById("username_notice").innerHTML="用户名不能为空";
+			}else{
+				document.getElementById("username_notice").innerHTML="<img src='images/icon_gou.gif'/>";
+			}
 		}
-	}
-	
-	function checkEmailValue(val){
-		if(val==""){
-			document.getElementById("email_notice").innerHTML="用户名不能为空";
-		}else{
-			document.getElementById("email_notice").innerHTML="<img src='images/icon_gou.gif'/>";
+
+		function checkEmailValue(val){
+			if(val==""){
+				document.getElementById("email_notice").innerHTML="用户名不能为空";
+			}else{
+				document.getElementById("email_notice").innerHTML="<img src='images/icon_gou.gif'/>";
+			}
 		}
-	}	
-</script>
+		
+		function checkPass(val) {
+			var password = document.getElementById("password").value;
+			if (val != password){
+				document.getElementById("conform_password_notice").innerHTML = "两次输入密码不一致!";
+			} 
+		}
+	</script>
 </head>
 <body>
 <!--LOGO欢迎信息和登陆注册功能-->
@@ -70,13 +90,14 @@
 <div class="usBox">
 	<div class="usBox_2 clearfix">
 		<div class="regtitle"></div>
-		<form action="RegisterBuyerServlet" method="post" name="formUser" onsubmit="checkForm()" >
+		<form action="userSvl?method=register" method="post" name="formUser" onsubmit="checkForm()" >
 			<table width="100%"  border="0" align="left" cellpadding="5" cellspacing="3">
 				<tr>
 					<td width="11%" align="right">用户名</td>
 					<td width="89%">
 						<input name="username" type="text" size="25" id="username" onblur="checkUserNameValue(this.value)" class="inputBg"/>
 						<span id="username_notice" style="color:#FF0000"> *</span>
+						
 					</td>
 				</tr>
 				<tr>
@@ -96,7 +117,7 @@
 				<tr>
 					<td align="right">确认密码</td>
 					<td>
-						<input name="confirm_password" type="password" id="conform_password" onblur=""  class="inputBg"/>
+						<input name="confirm_password" type="password" id="conform_password" onblur="checkPass(this.value)"  class="inputBg"/>
 						<span style="color:#FF0000" id="conform_password_notice"> *</span>
 					</td>
 				</tr>
@@ -127,6 +148,7 @@
 					</td>
 				</tr>
 			</table>
+			${sessionScope.info}
 		</form>
 	</div>
 </div>
