@@ -5,7 +5,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  <C:redirect url="/qiantai/main.jsp"/>
-  <%--<C:redirect url="/qiantai/goodSvl?method=queryGood"/>--%>
+  <%--<C:redirect url="/qiantai/main.jsp"/>--%>
+  <C:redirect url="/qiantai/goodSvl?method=queryGood"/>
   </body>
 </html>
